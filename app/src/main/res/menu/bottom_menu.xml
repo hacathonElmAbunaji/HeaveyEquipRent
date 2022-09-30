@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/home"
+        android:icon="@android:drawable/btn_minus"
+        android:title="@string/menu_item_home"
+        app:showAsAction="ifRoom" />
+
+
+    <item android:id="@+id/requests"
+        android:icon="@android:drawable/btn_star"
+        android:title="@string/menu_item_orders"
+        app:showAsAction="ifRoom"/>
+
+
+<!--    <item android:id="@+id/settings"-->
+<!--        android:icon="@android:drawable/btn_plus"-->
+<!--        android:title="@string/menu_item_settings"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
+
+    <item android:id="@+id/profile"
+        android:icon="@android:drawable/btn_radio"
+        android:title="@string/menu_item_progile"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

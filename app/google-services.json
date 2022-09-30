@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "464445211545",
+    "project_id": "heavy-equipment-rental",
+    "storage_bucket": "heavy-equipment-rental.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464445211545:android:4e1a3d6ae3de50dcf30908",
+        "android_client_info": {
+          "package_name": "com.hacathon.heavyequipmentrent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464445211545-9t5o1jp9id11vjou8lur4iskqeq1hfqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1HSogfPyiwyzXH-A-AEp0_mCfJZg_Idw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464445211545-9t5o1jp9id11vjou8lur4iskqeq1hfqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

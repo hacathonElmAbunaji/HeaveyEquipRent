@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Heavy Equipment Rent</string>
+
+    <!--  Register  -->
+    <string name="register_title">إنشاء مستخدم جديد</string>
+    <string name="register_username">اسم المستخدم</string>
+    <string name="register_password">كلمة المرور</string>
+    <string name="register_confirm_password">تاكيد كلمة المرور</string>
+    <string name="register_action">تسجيل</string>
+
+    <!--  Login  -->
+    <string name="login_title">المؤهل الذي تثق به</string>
+    <string name="login_username">إسم المستخدم</string>
+    <string name="login_password">كلمة المرور</string>
+    <string name="login_action">تسجيل الدخول</string>
+    <string name="login_register">لا يوجد لديك حساب</string>
+
+    <!--  Home  -->
+    <string name="menu_item_home_title">ابدأ عملك الان</string>
+    <string name="menu_item_home_header_title">عن ماذا تبحث</string>
+    <string name="menu_item_home_category">الفئة</string>
+
+    <!--  Sub categories  -->
+    <string name="sub_category_title">اكمل عملك الان مع</string>
+    <string name="sub_category_header_title">اكمل عملك الان مع</string>
+
+
+
+    <!--  Home menu  -->
+    <string name="menu_item_home">الطلبات</string>
+    <string name="menu_item_orders">الطلبات</string>
+    <string name="menu_item_settings">الاعدادات</string>
+    <string name="menu_item_progile">صفحتي</string>
+
+    <!--  Continue order  -->
+    <string name="continue_order_fragment_title">انت على وشك انشاء طلبك</string>
+    <string name="continue_order_fragment_header_title">انت على وشك انشاء طلبك</string>
+    <string name="continue_order_fragment_date_from">متى تخطط لبدء عملك؟</string>
+    <string name="continue_order_fragment_date_to">متى تخطط لانهاء عملك؟</string>
+
+
+    <!--  Settings  -->
+    <string name="settings_title">الاعدادات</string>
+    <string name="settings_language">تغيير اللغة</string>
+    <string name="settings_logout">تسجيل الخروج</string>
+
+
+
+    <!--  cell orders  -->
+    <string name="cell_orders_title">طلباتي</string>
+    <string name="cell_orders_order_id">رقم الطلب :</string>
+    <string name="cell_orders_order_date">تاريخ الطلب :</string>
+    <string name="cell_orders_order_status">حالة الطلب :</string>
+    <string name="cell_orders_order_price">السعر :</string>
+    <string name="cell_orders_order_details">التفاصيل :</string>
+
+
+    <!--  cell sub category  -->
+    <string name="cell_sub_category_title">تصنيف فرعي</string>
+
+
+    <!--  Profile  -->
+    <string name="profile_title">الصفحة الشخصية</string>
+
+</resources>
