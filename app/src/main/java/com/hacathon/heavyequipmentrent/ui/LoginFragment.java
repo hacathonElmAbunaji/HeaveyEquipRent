@@ -136,69 +136,27 @@ public class LoginFragment extends Fragment {
 
         ((MainActivity) getActivity()).showLoadingDialog(null, null);
 
-
         if (NetworkHelper.getInstance().isConnected()){
-
             Call<LoginResponse> cResponse = MyApplication.getRestClient().getApiService().loginService(req);
             cResponse.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, final Response<LoginResponse> response) {
                     if (isVisible() && !isDetached()){
-
                         ((MainActivity) getActivity()).hideLoadingDialog();
                     }
                     if (response !=null && response.errorBody() == null && response.body() != null){
                         final LoginResponse res = response.body();
-
-
-                        createUserProfileAndSave();
-
-//                    if (res.Response.ResponseCode == 0){
-//
-//                        SharedPreferences pref = AppController.getSharedPrefEncryp(getActivity().getApplicationContext());
-//                        SharedPreferences.Editor editor = pref.edit();
-//                        editor.putLong(USER_ID_PARAM, res.Response.UserID);
-//                        editor.putLong(USER_TYPE_PARAM, userType);
-//                        editor.putString(USER_PASSWORD_PARAM , req.getPassword());
-//                        editor.apply();
-//
-//
-//                        if (userType == USER_TYPE_GULF){
-//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, selectedGCCNationality);
-//                        }else if (userType == USER_TYPE_VISITOR){
-//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, selectedNationality);
-//                        }else {
-//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, null);
-//                        }
-//
-//
-//                    }
-//                    else {
-//
-//                        AppController.getInstance().reportErrorToServer(
-//                                "SERVER ERROR",
-//                                LanguageManager.isCurrentLangARabic() ? response.body().Response.ResponseDescAr : response.body().Response.ResponseDescLa,
-//                                cResponse.request().url().toString(),
-//                                cResponse.request().body());
-//
-//
-//
-//
-//                        if(LanguageManager.isCurrentLangARabic()){
-//                            AppController.getInstance().reportError(res.Response.getResponseDescAr());
-//                        }
-//                        else{
-//                            AppController.getInstance().reportError(res.Response.getResponseDescLa());
-//                        }
-//
-//
-//                    }
+                        if (res.getCode() == 0){
+                            createUserProfileAndSave(res);
+                        }
+                        else {
+                            MyApplication.getInstance().reportError(getString(R.string.error_happened));
+                        }
                     }
                     else {
                         MyApplication.getInstance().reportError(getString(R.string.error_serverconn));
                     }
                 }
-
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     if (isVisible() && !isDetached()){
@@ -212,12 +170,14 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void createUserProfileAndSave(){
+    private void createUserProfileAndSave(LoginResponse response){
 
         MyApplication.getRealmInstance().beginTransaction();
         MyApplication.getRealmInstance().where(UserBean.class).findAll().deleteAllFromRealm();
         UserBean userBean = new UserBean();
-        userBean.setUserID(11111111);
+        userBean.setUserID(response.getUserId());
+        userBean.setDisplayName(response.getDisplayName());
+        userBean.setToken(response.getToken());
         MyApplication.getRealmInstance().copyToRealmOrUpdate(userBean);
         MyApplication.getRealmInstance().commitTransaction();
 
