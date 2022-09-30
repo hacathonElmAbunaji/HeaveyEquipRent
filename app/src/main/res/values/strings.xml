@@ -2,12 +2,18 @@
     <string name="app_name">Heavy Equipment Rent</string>
 
 
+<!--    <string name="google_api_key" translatable="false">AIzaSyD00mKclR4zGS4fwKlNisRQsgZvDINLZQU</string>-->
+
     <!--  Login  -->
     <string name="login_title">The qualification you trust</string>
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
     <string name="login_action">Login</string>
     <string name="login_register">Register</string>
+    <string name="login_valid_username_error_message">Enter valid username</string>
+    <string name="login_valid_username_length_error_message">Username should be more than 5 characters and numbers</string>
+    <string name="login_valid_password_error_message">Enter valid password</string>
+    <string name="login_valid_password_length_error_message">Password should be more than 7 characters</string>
 
 
     <!--  Register  -->
@@ -40,6 +46,12 @@
     <string name="continue_order_fragment_header_title">You are about create you order</string>
     <string name="continue_order_fragment_date_from">When you plan to start your work?</string>
     <string name="continue_order_fragment_date_to">When you plan to finish your work?</string>
+    <string name="pick_your_work_location">Pick your work location</string>
+    <string name="continue_order_fragment_action_submit">Submit now</string>
+    <string name="continue_order_fragment_error_message_date_from">Pick your work start date</string>
+    <string name="continue_order_fragment_error_message_date_to">Pick your work end date</string>
+    <string name="continue_order_fragment_error_message_location_on_map">Pick work location on map</string>
+    <string name="continue_order_fragment_map_customer_location">Work location</string>
 
 
     <!--  Settings  -->
@@ -65,7 +77,14 @@
     <string name="cell_sub_category_title">Sub category</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  General  -->
+    <string name="loading">Loading</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try again</string>
+    <string name="error_happened">Error happened</string>
+    <string name="connection_issue">Internet connection issue</string>
 
 
 </resources>

@@ -15,6 +15,11 @@
     <string name="login_password">كلمة المرور</string>
     <string name="login_action">تسجيل الدخول</string>
     <string name="login_register">لا يوجد لديك حساب</string>
+    <string name="login_valid_username_error_message">ادخل اسم المستخدم</string>
+    <string name="login_valid_username_length_error_message">اسم المستخدم يجب ان يكون اكثر من ٥ خانات</string>
+    <string name="login_valid_password_error_message">ادخل كلمة المرور</string>
+    <string name="login_valid_password_length_error_message">كلمة المرور يجب ان تكون اكثر من ٧ خانات</string>
+
 
     <!--  Home  -->
     <string name="menu_item_home_title">ابدأ عملك الان</string>
@@ -38,7 +43,12 @@
     <string name="continue_order_fragment_header_title">انت على وشك انشاء طلبك</string>
     <string name="continue_order_fragment_date_from">متى تخطط لبدء عملك؟</string>
     <string name="continue_order_fragment_date_to">متى تخطط لانهاء عملك؟</string>
-
+    <string name="pick_your_work_location">حدد موقع العمل</string>
+    <string name="continue_order_fragment_action_submit">ارسال الطلب</string>
+    <string name="continue_order_fragment_error_message_date_from">اختر تاريخ بداية العمل</string>
+    <string name="continue_order_fragment_error_message_date_to">اختر تاريخ انتهاء العمل</string>
+    <string name="continue_order_fragment_error_message_location_on_map">اختر موقع العمل على الخريطة</string>
+    <string name="continue_order_fragment_map_customer_location">موقع العمل</string>
 
     <!--  Settings  -->
     <string name="settings_title">الاعدادات</string>
@@ -62,5 +72,14 @@
 
     <!--  Profile  -->
     <string name="profile_title">الصفحة الشخصية</string>
+
+
+    <!--  General  -->
+    <string name="loading">جاري التحميل</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">الغاء</string>
+    <string name="try_again">محاولة مرة اخرى</string>
+    <string name="error_happened">حدث خطا</string>
+    <string name="connection_issue">مشكلة اتصال بالشبكة</string>
 
 </resources>

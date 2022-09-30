@@ -106,7 +106,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_logout"
+        android:src="@drawable/ic_logout_log"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 

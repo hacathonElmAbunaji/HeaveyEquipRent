@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,9 @@ import com.hacathon.heavyequipmentrent.ui.RegisterFragment;
 import com.hacathon.heavyequipmentrent.ui.SettingsFragment;
 import com.hacathon.heavyequipmentrent.ui.SubCategoryFragment;
 
+import io.realm.Realm;
+
+
 public class MainActivity extends AppCompatActivity implements MainCallBacks {
 
 
@@ -33,14 +37,12 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
     TextView txt_screenTitle;
     BottomNavigationView app_nav;
     ImageView imageView_arrow_back;
-
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
 
 
@@ -154,6 +156,31 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
 
         }
     }
+
+    public void showLoadingDialog(String title, String message){
+        if (progress == null){
+            progress = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+            progress.setTitle(getString(R.string.loading));
+            progress.setMessage(getString(R.string.loading));
+            if (title != null && ! title.isEmpty()){
+                progress.setTitle(getString(R.string.loading));
+            }
+            if (message != null && ! message.isEmpty()){
+                progress.setTitle(getString(R.string.loading));
+            }
+            progress.setCancelable(false);
+        }
+        progress.show();
+    }
+
+    public void hideLoadingDialog(){
+        if (progress != null && progress.isShowing()){
+            progress.dismiss();
+        }
+    }
+
+
+
 
 
 }//Class

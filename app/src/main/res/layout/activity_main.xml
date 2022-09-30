@@ -44,12 +44,13 @@
 
         <ImageView
             android:id="@+id/imageView_arrow_back"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back_button_arrow" />
+            app:srcCompat="@drawable/ic_back_simp_arrow" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
