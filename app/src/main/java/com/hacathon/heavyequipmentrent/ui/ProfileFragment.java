@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.hacathon.heavyequipmentrent.Constants.Constants;
+import com.hacathon.heavyequipmentrent.MainActivity;
 import com.hacathon.heavyequipmentrent.R;
+import com.hacathon.heavyequipmentrent.appcore.MyApplication;
+import com.hacathon.heavyequipmentrent.database.UserBean;
 import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.MainCallBacks;
 
 /**
@@ -73,7 +77,10 @@ public class ProfileFragment extends Fragment {
         imageView_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Logout", Toast.LENGTH_LONG).show();
+                MyApplication.getRealmInstance().beginTransaction();
+                MyApplication.getRealmInstance().where(UserBean.class).findAll().deleteAllFromRealm();
+                MyApplication.getRealmInstance().commitTransaction();
+                ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Login);
             }
         });
     }

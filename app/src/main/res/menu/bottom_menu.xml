@@ -4,13 +4,13 @@
 
 
     <item android:id="@+id/home"
-        android:icon="@android:drawable/btn_minus"
+        android:icon="@drawable/ic_home"
         android:title="@string/menu_item_home"
         app:showAsAction="ifRoom" />
 
 
     <item android:id="@+id/requests"
-        android:icon="@android:drawable/btn_star"
+        android:icon="@drawable/ic_orders"
         android:title="@string/menu_item_orders"
         app:showAsAction="ifRoom"/>
 
@@ -22,7 +22,7 @@
 
 
     <item android:id="@+id/profile"
-        android:icon="@android:drawable/btn_radio"
+        android:icon="@drawable/ic_profile"
         android:title="@string/menu_item_progile"
         app:showAsAction="ifRoom"/>
 

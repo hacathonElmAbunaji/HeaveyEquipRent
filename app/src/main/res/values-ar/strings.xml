@@ -38,6 +38,13 @@
     <string name="menu_item_settings">الاعدادات</string>
     <string name="menu_item_progile">صفحتي</string>
 
+
+    <!--  Equipments  -->
+    <string name="equipments_fragment_title">متبقي خطوة على انشاء طلبك</string>
+    <string name="equipments_category_header_title">اكمل عملك الان مع التصنيف</string>
+    <string name="equipments_sub_category_header_title">اكمل عملك الان مع التصنيف الفرعي</string>
+
+
     <!--  Continue order  -->
     <string name="continue_order_fragment_title">انت على وشك انشاء طلبك</string>
     <string name="continue_order_fragment_header_title">انت على وشك انشاء طلبك</string>
@@ -69,6 +76,8 @@
     <!--  cell sub category  -->
     <string name="cell_sub_category_title">تصنيف فرعي</string>
 
+    <!--  cell equipment category  -->
+    <string name="cell_equipment_category_title">المعدات</string>
 
     <!--  Profile  -->
     <string name="profile_title">الصفحة الشخصية</string>
@@ -81,5 +90,8 @@
     <string name="try_again">محاولة مرة اخرى</string>
     <string name="error_happened">حدث خطا</string>
     <string name="connection_issue">مشكلة اتصال بالشبكة</string>
+    <string name="error_serverconn">خطا في السيرفر</string>
+    <string name="server_error">حدث خطأ يرجى المحاولة لاحقا</string>
+    <string name="check_connection">قم بالتحقق من اتصالك في الشبكة</string>
 
 </resources>

@@ -2,7 +2,9 @@
     <string name="app_name">Heavy Equipment Rent</string>
 
 
-<!--    <string name="google_api_key" translatable="false">AIzaSyD00mKclR4zGS4fwKlNisRQsgZvDINLZQU</string>-->
+    <string name="preference_file_key" translatable="false">preference_file_key_s</string>
+    <string name="language_pref" translatable="false">lang_pref</string>
+
 
     <!--  Login  -->
     <string name="login_title">The qualification you trust</string>
@@ -41,6 +43,12 @@
     <string name="menu_item_progile">Profile</string>
 
 
+
+    <!--  Equipments  -->
+    <string name="equipments_fragment_title">One more step left</string>
+    <string name="equipments_category_header_title">Continue your category</string>
+    <string name="equipments_sub_category_header_title">Continue your sub category</string>
+
     <!--  Continue order  -->
     <string name="continue_order_fragment_title">You are about create you order</string>
     <string name="continue_order_fragment_header_title">You are about create you order</string>
@@ -76,6 +84,8 @@
     <!--  cell sub category  -->
     <string name="cell_sub_category_title">Sub category</string>
 
+    <!--  cell equipment category  -->
+    <string name="cell_equipment_category_title">Equipment</string>
 
 
     <!--  General  -->
@@ -85,6 +95,8 @@
     <string name="try_again">Try again</string>
     <string name="error_happened">Error happened</string>
     <string name="connection_issue">Internet connection issue</string>
-
+    <string name="error_serverconn">Server Error</string>
+    <string name="server_error">Error happened please try again later</string>
+    <string name="check_connection">Please Check Internet Connection</string>
 
 </resources>

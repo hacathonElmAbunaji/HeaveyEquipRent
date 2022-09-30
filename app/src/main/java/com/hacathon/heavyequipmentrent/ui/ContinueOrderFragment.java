@@ -75,7 +75,7 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
         ((MainActivity) getActivity()).showHideBottomNavBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.continue_order_fragment_title));
-        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.SHOW);
+        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.HIDE);
 
 
     }//OnCreate

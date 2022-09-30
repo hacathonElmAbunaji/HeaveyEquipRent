@@ -13,29 +13,30 @@ import android.view.ViewGroup;
 import com.hacathon.heavyequipmentrent.Constants.Constants;
 import com.hacathon.heavyequipmentrent.MainActivity;
 import com.hacathon.heavyequipmentrent.R;
+import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.EquipmentCallBacks;
 import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.MainCallBacks;
-import com.hacathon.heavyequipmentrent.ui.Adapters.OrdersAdapter;
+import com.hacathon.heavyequipmentrent.ui.Adapters.EquipmentsAdapter;
+import com.hacathon.heavyequipmentrent.ui.Adapters.SubCategoryAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OrdersFragment#newInstance} factory method to
+ * Use the {@link SelectEquipmentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrdersFragment extends Fragment {
-
+public class SelectEquipmentFragment extends Fragment implements EquipmentCallBacks {
 
     View view;
-    OrdersAdapter adapter;
-    RecyclerView recycler_view_orders;
     MainCallBacks mainCallBacks;
+    RecyclerView recycler_view_equipment;
+    EquipmentsAdapter adapter;
 
-    public OrdersFragment(MainCallBacks mainCallBacks) {
+    public SelectEquipmentFragment(MainCallBacks mainCallBacks) {
         mainCallBacks = mainCallBacks;
     }
 
 
-    public static OrdersFragment newInstance(MainCallBacks mainCallBacks) {
-        OrdersFragment fragment = new OrdersFragment(mainCallBacks);
+    public static SelectEquipmentFragment newInstance(MainCallBacks mainCallBacks) {
+        SelectEquipmentFragment fragment = new SelectEquipmentFragment(mainCallBacks);
         fragment.mainCallBacks = mainCallBacks;
 
         return fragment;
@@ -51,44 +52,48 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_orders, container, false);
-
-        //ACTIVITY CUSTOM
-        ((MainActivity) getActivity()).showHideBottomNavBar(Constants.ShowOrHide.SHOW);
-        ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.cell_orders_title));
-        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.HIDE);
+        view = inflater.inflate(R.layout.fragment_select_equipment, container, false);
 
         //Adapt
-        adapter = new OrdersAdapter(getActivity());
+        adapter = new EquipmentsAdapter(getContext(), this);
 
         initLayouts();
         initTable();
         populateTable();
 
-
         return view;
     }//OnCreateView
+
 
     public void initLayouts(){
 
         ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.cell_orders_title));
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.equipments_fragment_title));
 
-        recycler_view_orders = view.findViewById(R.id.recycler_view_orders);
+        recycler_view_equipment = view.findViewById(R.id.recycler_view_equipment);
+
+
+//        textView_selected_cat_name = view.findViewById(R.id.textView_selected_cat_name);
+//        textView_selected_cat_name.setText(getString(R.string.menu_item_home_category));
+
     }
 
 
 
     public void initTable(){
-        recycler_view_orders.setHasFixedSize(true);
+        recycler_view_equipment.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recycler_view_orders.setLayoutManager(layoutManager);
+        recycler_view_equipment.setLayoutManager(layoutManager);
     }
 
     public void populateTable(){
-        recycler_view_orders.setAdapter(adapter);
+        recycler_view_equipment.setAdapter(adapter);
     }
 
+
+    @Override
+    public void equipmentSelected(String name) {
+        ((MainActivity) getActivity()).navigateTo(Constants.Navigations.CONTINUE_ORDER);
+    }
 
 }//Class

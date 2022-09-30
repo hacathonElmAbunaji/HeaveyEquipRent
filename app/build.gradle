@@ -29,6 +29,25 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", 'Base_Domain', "\"https://muaddaty.com/api/Muaddat/\"")
+            debuggable true
+        }
+        release {
+
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String",'Base_Domain',"\"https://muaddaty.com/api/Muaddat/\"")
+//            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 dependencies {

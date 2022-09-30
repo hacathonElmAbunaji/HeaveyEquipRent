@@ -1,5 +1,9 @@
 package com.hacathon.heavyequipmentrent.ui;
 
+import static com.hacathon.heavyequipmentrent.Constants.Constants.IS_FIRSTRUN;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +20,17 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.hacathon.heavyequipmentrent.Constants.Constants;
 import com.hacathon.heavyequipmentrent.MainActivity;
 import com.hacathon.heavyequipmentrent.R;
+import com.hacathon.heavyequipmentrent.appcore.MyApplication;
+import com.hacathon.heavyequipmentrent.database.UserBean;
+import com.hacathon.heavyequipmentrent.models.Requests.LoginRequest;
+import com.hacathon.heavyequipmentrent.models.Responses.LoginResponse;
+import com.hacathon.heavyequipmentrent.network.NetworkHelper;
 import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.MainCallBacks;
+import com.hacathon.heavyequipmentrent.utilis.LanguageManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,7 +100,7 @@ public class LoginFragment extends Fragment {
         imageView_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Change language", Toast.LENGTH_LONG).show();
+                changeLanguage();
             }
         });
 
@@ -108,11 +122,108 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isValidToSubmit()){
-                    ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Home);
+                    SubmitLogin();
                 }
             }
         });
     }
+
+
+    private void SubmitLogin(){
+        LoginRequest req = new LoginRequest();
+        req.setUsername(editTextUsername.getText().toString());
+        req.setPassword(editTextPassword.getText().toString());
+
+        ((MainActivity) getActivity()).showLoadingDialog(null, null);
+
+
+        if (NetworkHelper.getInstance().isConnected()){
+
+            Call<LoginResponse> cResponse = MyApplication.getRestClient().getApiService().loginService(req);
+            cResponse.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, final Response<LoginResponse> response) {
+                    if (isVisible() && !isDetached()){
+
+                        ((MainActivity) getActivity()).hideLoadingDialog();
+                    }
+                    if (response !=null && response.errorBody() == null && response.body() != null){
+                        final LoginResponse res = response.body();
+
+
+                        createUserProfileAndSave();
+
+//                    if (res.Response.ResponseCode == 0){
+//
+//                        SharedPreferences pref = AppController.getSharedPrefEncryp(getActivity().getApplicationContext());
+//                        SharedPreferences.Editor editor = pref.edit();
+//                        editor.putLong(USER_ID_PARAM, res.Response.UserID);
+//                        editor.putLong(USER_TYPE_PARAM, userType);
+//                        editor.putString(USER_PASSWORD_PARAM , req.getPassword());
+//                        editor.apply();
+//
+//
+//                        if (userType == USER_TYPE_GULF){
+//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, selectedGCCNationality);
+//                        }else if (userType == USER_TYPE_VISITOR){
+//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, selectedNationality);
+//                        }else {
+//                            ((LoginAndVerifyActivity) getActivity()).GotoOTBForLoginFragment(res, VERIFY_OTP_SCREEN_ACCESS_TYPE_LOGIN , req, null);
+//                        }
+//
+//
+//                    }
+//                    else {
+//
+//                        AppController.getInstance().reportErrorToServer(
+//                                "SERVER ERROR",
+//                                LanguageManager.isCurrentLangARabic() ? response.body().Response.ResponseDescAr : response.body().Response.ResponseDescLa,
+//                                cResponse.request().url().toString(),
+//                                cResponse.request().body());
+//
+//
+//
+//
+//                        if(LanguageManager.isCurrentLangARabic()){
+//                            AppController.getInstance().reportError(res.Response.getResponseDescAr());
+//                        }
+//                        else{
+//                            AppController.getInstance().reportError(res.Response.getResponseDescLa());
+//                        }
+//
+//
+//                    }
+                    }
+                    else {
+                        MyApplication.getInstance().reportError(getString(R.string.error_serverconn));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    if (isVisible() && !isDetached()){
+                        ((MainActivity) getActivity()).hideLoadingDialog();
+                        MyApplication.getInstance().reportError(getString(R.string.server_error));
+                    }
+                }
+            });
+        }else {
+            MyApplication.getInstance().reportError(getString(R.string.check_connection));
+        }
+    }
+
+    private void createUserProfileAndSave(){
+
+        MyApplication.getRealmInstance().beginTransaction();
+        MyApplication.getRealmInstance().where(UserBean.class).findAll().deleteAllFromRealm();
+        UserBean userBean = new UserBean();
+        userBean.setUserID(11111111);
+        MyApplication.getRealmInstance().copyToRealmOrUpdate(userBean);
+        MyApplication.getRealmInstance().commitTransaction();
+
+        ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Home);
+    }
+
 
 
     private boolean isValidToSubmit(){
@@ -145,6 +256,26 @@ public class LoginFragment extends Fragment {
 
 
 
+    private void changeLanguage(){
+        if(LanguageManager.isCurrentLangARabic()){
+            LanguageManager.setCurrentLocalLanguage(getActivity().getBaseContext(), "en");
+            SharedPreferences pref = MyApplication.getSharedPref(getActivity().getApplicationContext());
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean(IS_FIRSTRUN, false);
+            editor.apply();
+
+            System.exit(0);
+        }
+        else {
+            LanguageManager.setCurrentLocalLanguage(getActivity().getBaseContext(), "ar");
+            SharedPreferences pref = MyApplication.getSharedPref(getActivity().getApplicationContext());
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean(IS_FIRSTRUN, false);
+            editor.apply();
+
+            System.exit(0);
+        }
+    }
 
 
 }//Class

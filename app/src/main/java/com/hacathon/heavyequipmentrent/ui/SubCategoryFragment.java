@@ -64,7 +64,7 @@ public class SubCategoryFragment extends Fragment implements SubCatCallBacks {
         ((MainActivity) getActivity()).showHideBottomNavBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.menu_item_home_title));
-        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.SHOW);
+        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.HIDE);
 
         initLayouts();
         initTable();
@@ -102,7 +102,7 @@ public class SubCategoryFragment extends Fragment implements SubCatCallBacks {
 
     @Override
     public void subCategoryItemClicked(String name) {
-        ((MainActivity) getActivity()).navigateTo(Constants.Navigations.CONTINUE_ORDER);
+        ((MainActivity) getActivity()).navigateTo(Constants.Navigations.SELECT_EQUIPMENT);
     }
 
 }//Class
