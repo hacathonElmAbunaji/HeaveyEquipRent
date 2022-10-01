@@ -169,22 +169,18 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, LoginFragment.newInstance(this)).commit(); break;
             }
             case Home: {
-                app_nav.setSelectedItemId(R.id.home);
                 clearBackStack();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(this)).addToBackStack(null).commit();} break;
             case SUB_CATEGORY: fragmentManager.beginTransaction().replace(R.id.fragment_container, SubCategoryFragment.newInstance(this, selectedCatId)).addToBackStack(null).commit(); break;
             case SELECT_EQUIPMENT: fragmentManager.beginTransaction().replace(R.id.fragment_container, SelectEquipmentFragment.newInstance(this, selectedCatId, selectedSubCatId)).addToBackStack(null).commit(); break;
             case CONTINUE_ORDER: fragmentManager.beginTransaction().replace(R.id.fragment_container, ContinueOrderFragment.newInstance(this, selectedCatId, selectedSubCatId, selectedEquipmentId)).addToBackStack(null).commit(); break;
             case Orders: {
-                app_nav.setSelectedItemId(R.id.requests);
                 clearBackStack();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, OrdersFragment.newInstance(this)).addToBackStack(null).commit(); break;}
             case Settings: {
-//                app_nav.setSelectedItemId(R.id.requests);
                 clearBackStack();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsFragment.newInstance(this)).addToBackStack(null).commit(); break;}
             case Profile: {
-                app_nav.setSelectedItemId(R.id.profile);
                 clearBackStack();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment.newInstance(this)).addToBackStack(null).commit(); break;}
         }
