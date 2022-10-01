@@ -105,19 +105,19 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        editTextUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Username clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        editTextPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Password clicked", Toast.LENGTH_LONG).show();
-            }
-        });
+//        editTextUsername.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "Username clicked", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        editTextPassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "Password clicked", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override

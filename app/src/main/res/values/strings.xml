@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Heavy Equipment Rent</string>
+    <string name="app_name">Muaddaty</string>
 
 
     <string name="preference_file_key" translatable="false">preference_file_key_s</string>

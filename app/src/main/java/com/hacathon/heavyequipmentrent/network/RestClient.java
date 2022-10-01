@@ -8,11 +8,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hacathon.heavyequipmentrent.BuildConfig;
 import com.hacathon.heavyequipmentrent.appcore.MyApplication;
+import com.hacathon.heavyequipmentrent.database.UserBean;
 import com.hacathon.heavyequipmentrent.utilis.Utilities;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import okhttp3.CertificatePinner;
 import okhttp3.CookieJar;
@@ -65,67 +67,20 @@ public class RestClient {
                 RequestBody requestBody = original.body();
 
                 if (requestBody != null) {
-//                    RequestBody requestBody = original.body();
-
                     requestBody = processApplicationJsonRequestBody(requestBody);
                     requestBuilder.post(requestBody);
+                }
 
+                UserBean userBean = Realm.getDefaultInstance().where(UserBean.class).findFirst();
+                if (userBean != null && userBean.isValid()){
+                    final String basic = "Bearer " + userBean.getToken();
+                    requestBuilder.addHeader("Authorization", basic);
+                    requestBuilder.addHeader("Accept", "application/json");
                 }
 
 
-                SharedPreferences pref = MyApplication.getSharedPref(MyApplication.getInstance().getApplicationContext());
-
-//                String dynamicKey = pref.getString(Dynamic_Code_Key, null);
-//                String fixedCode = Hard_Code_Key;
-//                String timeStamp = String.valueOf(System.currentTimeMillis());
-//                String concatString = fixedCode.concat(dynamicKey).concat(timeStamp);
-//                String hashedString = Utilities.getHash(concatString, "SHA-256");
-//
-//                if( pref.getBoolean(IS_USER_LOGGED , false)) {
-//
-////                    String userPassword = pref.getString(USER_PASSWORD_PARAM,null);
-////                    String userName = String.valueOf(pref.getLong(USER_ID_PARAM,0));
-////                    String credentials = userName+":"+userPassword;
-////
-////                    // create Base64 encodet string
-////                    final String basic =
-////                            "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-//
-//
-//
-//                    final String basic = "Bearer " + pref.getString(USER_Token,null);
-//                    requestBuilder.addHeader("Authorization", basic);
-//                    requestBuilder.addHeader("Accept", "application/json");
-//
-//
-//                }
-//                requestBuilder.addHeader("hash", hashedString);
-//                requestBuilder.addHeader("timestamp", timeStamp);
-//                if (is_InDebugMode  || BuildConfig.BUILD_TYPE.contentEquals("sec")) {
-//                    requestBuilder.addHeader("Version", BASE_DOMAIN_SERVICE_VERSION_DEV);
-//                }else {
-//                    requestBuilder.addHeader("Version", BASE_DOMAIN_SERVICE_VERSION_PROD);
-//                }
-//
-//
-//
-//
-//                //THIS ADDED PARAMS ONLY REQUIRED FOR TIBCO SERVICES
-//                requestBuilder.addHeader("deviceType", DEVICE_TYPE_NAME);
-//                requestBuilder.addHeader("appVersion", BuildConfig.VERSION_NAME);
-//
-
                 Request request = requestBuilder.build();
                 Response response = chain.proceed(request);
-
-//                if (response.body() != null && !request.url().toString().contains(kWebServicePostErrorLog)) {
-//                    checkProxyError(response ,original.body());
-//                }
-
-
-//                if (response.body() != null && pref.getBoolean(IS_USER_LOGGED , false)){
-//                    handleUserUnAuthorizedRespLogout(response ,original.body());
-//                }
 
 
                 return response;

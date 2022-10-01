@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Heavy Equipment Rent</string>
+    <string name="app_name">معداتي</string>
 
     <!--  Register  -->
     <string name="register_title">إنشاء مستخدم جديد</string>
