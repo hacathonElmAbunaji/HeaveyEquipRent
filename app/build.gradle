@@ -30,6 +30,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+//    signingConfigs {
+//        release {
+//            storeFile file('//Users/semahmoudabunaji/Desktop/androidProjects/android-key-stores/Eatmarna/KeyStore')
+//            storePassword 'Sejel2003'
+//            keyAlias 'realeasekey'
+//            keyPassword 'Sejel2003'
+//        }
+//    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -38,7 +47,6 @@ android {
             debuggable true
         }
         release {
-
             minifyEnabled true
             shrinkResources true
             debuggable false

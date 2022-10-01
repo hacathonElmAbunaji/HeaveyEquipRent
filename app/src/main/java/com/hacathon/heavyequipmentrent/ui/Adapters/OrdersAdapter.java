@@ -58,7 +58,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         holder.textView_order_number.setText(bean.getId().toString());
 
 
-        holder.ratingBar_order.setIsIndicator(false);
+        holder.ratingBar_order.setIsIndicator(true);
 
         if (bean.getState() == Long.valueOf(Constants.NEW)){
             holder.textView_order_status.setText(context.getString(R.string.cell_orders_order_state_new));
