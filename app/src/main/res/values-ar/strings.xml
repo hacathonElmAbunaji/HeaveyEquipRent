@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">معداتي</string>
+
+    <!--  Register  -->
+    <string name="register_title">إنشاء مستخدم جديد</string>
+    <string name="register_username">اسم المستخدم</string>
+    <string name="register_password">كلمة المرور</string>
+    <string name="register_confirm_password">تاكيد كلمة المرور</string>
+    <string name="register_action">تسجيل</string>
+
+    <!--  Login  -->
+    <string name="login_title">المؤهل الذي تثق به</string>
+    <string name="login_username">إسم المستخدم</string>
+    <string name="login_password">كلمة المرور</string>
+    <string name="login_action">تسجيل الدخول</string>
+    <string name="login_register">لا يوجد لديك حساب</string>
+    <string name="login_valid_username_error_message">ادخل اسم المستخدم</string>
+    <string name="login_valid_username_length_error_message">اسم المستخدم يجب ان يكون اكثر من ٣ خانات</string>
+    <string name="login_valid_password_error_message">ادخل كلمة المرور</string>
+    <string name="login_valid_password_length_error_message">كلمة المرور يجب ان تكون اكثر من ٣ خانات</string>
+
+
+    <!--  Home  -->
+    <string name="menu_item_home_title">ابدأ عملك الان</string>
+    <string name="menu_item_home_header_title">عن ماذا تبحث</string>
+    <string name="menu_item_home_category">الفئة</string>
+
+    <!--  Sub categories  -->
+    <string name="sub_category_title">اكمل عملك الان مع</string>
+    <string name="sub_category_header_title">لقد قمت باختيار</string>
+
+
+
+    <!--  Home menu  -->
+    <string name="menu_item_home">الرئيسية</string>
+    <string name="menu_item_orders">الطلبات</string>
+    <string name="menu_item_settings">الاعدادات</string>
+    <string name="menu_item_progile">صفحتي</string>
+    <string name="menu_item_no_categories">لا يوجد تصنيفات</string>
+
+
+    <!--  Equipments  -->
+    <string name="equipments_fragment_title">تبقى خطوة على انشاء طلبك</string>
+    <string name="equipments_category_header_title">لقد قمت باختيار</string>
+    <string name="equipments_sub_category_header_title">اكمل عملك الان مع التصنيف الفرعي</string>
+
+
+    <!--  Continue order  -->
+    <string name="continue_order_fragment_title">انت على وشك انشاء طلبك</string>
+    <string name="continue_order_fragment_header_title">انت على وشك انشاء طلبك</string>
+    <string name="continue_order_fragment_date_from">متى تخطط لبدء مشروعك؟</string>
+    <string name="continue_order_fragment_date_to">متى تخطط لانهاء مشروعك؟</string>
+    <string name="continue_order_fragment_dead_line">متى اخر موعد لاستلام عروض الاسعار؟</string>
+    <string name="pick_your_work_location">حدد موقع العمل</string>
+    <string name="continue_order_fragment_action_submit">ارسال الطلب</string>
+    <string name="continue_order_fragment_error_message_date_from">اختر تاريخ بداية المشروع</string>
+    <string name="continue_order_fragment_error_message_date_to">اختر تاريخ انتهاء المشروع</string>
+    <string name="continue_order_fragment_error_message_dead_line">اختر اخر تاريخ استلام عروض اسعار</string>
+    <string name="continue_order_fragment_error_details">قم بكتابة التفاصيل</string>
+    <string name="continue_order_fragment_error_message_location_on_map">اختر موقع العمل على الخريطة</string>
+    <string name="continue_order_fragment_map_customer_location">موقع العمل</string>
+    <string name="pick_your_payment_type">اختر طريقة الدفع</string>
+    <string name="pick_your_request_details">قم بذكر بعض معلومات المشروع الخاص بك</string>
+
+
+
+    <!--  Settings  -->
+    <string name="settings_title">الاعدادات</string>
+    <string name="settings_language">تغيير اللغة</string>
+    <string name="settings_logout">تسجيل الخروج</string>
+    <string name="settings_logout_confirm_msg">هل انت متاكد من انك تريد تسجيل الخروج؟</string>
+    <string name="settings_cash">الدفع عند الوصول</string>
+    <string name="settings_card">بطاقة إئتمانية</string>
+
+
+    <!--  cell orders  -->
+    <string name="cell_orders_title">طلباتي</string>
+    <string name="cell_orders_order_id">رقم الطلب</string>
+    <string name="cell_orders_order_date">تاريخ بداية الطلب</string>
+    <string name="cell_orders_order_date_end">تاريخ انتهاء الطلب</string>
+    <string name="cell_orders_order_status">حالة الطلب</string>
+    <string name="cell_orders_order_price">السعر</string>
+    <string name="cell_orders_order_details">التفاصيل</string>
+    <string name="cell_orders_order_state_new">جديد</string>
+    <string name="cell_orders_order_state_completed">مكتمل</string>
+    <string name="cell_orders_order_state_expired">منتهي</string>
+    <string name="cell_orders_order_state_deleted">محذوف</string>
+    <string name="cell_orders_order_catregory">التصنيف</string>
+    <string name="cell_orders_order_sub_catregory">التصنيف الفرعي</string>
+    <string name="cell_orders_order_rating_submitted">تم ارسال التقييم</string>
+    <string name="cell_orders_order_rating_send">حفظ</string>
+
+    <!--  cell sub category  -->
+    <string name="cell_sub_category_title">تصنيف فرعي</string>
+
+    <!--  cell equipment category  -->
+    <string name="cell_equipment_category_title">المعدات</string>
+    <string name="cell_equipment_supplier_data">المورد</string>
+    <string name="cell_equipment_supplier_name">المورد</string>
+    <string name="cell_equipment_supplier_rate">التقييم</string>
+    <string name="cell_equipment_price">السعر</string>
+    <string name="cell_equipment_SR">رس</string>
+    <string name="cell_equipment_daily">يومي</string>
+    <string name="cell_equipment_weekly">اسبوعي</string>
+    <string name="cell_equipment_monthly">شهري</string>
+    <string name="cell_equipment_height">الارتفاع</string>
+    <string name="cell_equipment_weight">الوزن</string>
+    <string name="cell_equipment_quantity">العدد</string>
+    <string name="cell_equipment_height_count">م</string>
+    <string name="cell_equipment_weight_count">طن</string>
+
+    <!--  Profile  -->
+    <string name="profile_title">الصفحة الشخصية</string>
+    <string name="profile_name">الاسم</string>
+
+
+    <!--  General  -->
+    <string name="loading">جاري التحميل</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">الغاء</string>
+    <string name="try_again">محاولة مرة اخرى</string>
+    <string name="error_happened">حدث خطا</string>
+    <string name="connection_issue">مشكلة اتصال بالشبكة</string>
+    <string name="error_serverconn">خطا في السيرفر</string>
+    <string name="server_error">حدث خطأ يرجى المحاولة لاحقا</string>
+    <string name="check_connection">قم بالتحقق من اتصالك في الشبكة</string>
+
+</resources>
