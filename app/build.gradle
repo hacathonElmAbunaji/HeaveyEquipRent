@@ -81,6 +81,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     //Image
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.1'
+
+    //Swipe
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

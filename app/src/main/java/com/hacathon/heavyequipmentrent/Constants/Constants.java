@@ -26,4 +26,14 @@ public class Constants {
     public static String IS_FIRSTRUN = "IS_FIRSTRUN";
 
 
+
+    public static Integer NEW = 0;
+    public static Integer COMPLETED = 1;
+    public static Integer DELETED = -1;
+    public static Integer EXPIRED = -2;
+
+
+
+
+
 }

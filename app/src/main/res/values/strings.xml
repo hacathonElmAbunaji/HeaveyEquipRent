@@ -13,9 +13,9 @@
     <string name="login_action">Login</string>
     <string name="login_register">Register</string>
     <string name="login_valid_username_error_message">Enter valid username</string>
-    <string name="login_valid_username_length_error_message">Username should be more than 5 characters and numbers</string>
+    <string name="login_valid_username_length_error_message">Username should be more than 3 characters and numbers</string>
     <string name="login_valid_password_error_message">Enter valid password</string>
-    <string name="login_valid_password_length_error_message">Password should be more than 7 characters</string>
+    <string name="login_valid_password_length_error_message">Password should be more than 3 characters</string>
 
 
     <!--  Register  -->
@@ -33,7 +33,7 @@
 
     <!--  Sub categories  -->
     <string name="sub_category_title">Continue you work with</string>
-    <string name="sub_category_header_title">Continue your order with</string>
+    <string name="sub_category_header_title">You select</string>
 
 
     <!--  Home menu  -->
@@ -41,51 +41,81 @@
     <string name="menu_item_orders">Requests</string>
     <string name="menu_item_settings">Settings</string>
     <string name="menu_item_progile">Profile</string>
-
+    <string name="menu_item_no_categories">No categories</string>
 
 
     <!--  Equipments  -->
     <string name="equipments_fragment_title">One more step left</string>
-    <string name="equipments_category_header_title">Continue your category</string>
+    <string name="equipments_category_header_title">You choose</string>
     <string name="equipments_sub_category_header_title">Continue your sub category</string>
 
     <!--  Continue order  -->
     <string name="continue_order_fragment_title">You are about create you order</string>
     <string name="continue_order_fragment_header_title">You are about create you order</string>
-    <string name="continue_order_fragment_date_from">When you plan to start your work?</string>
-    <string name="continue_order_fragment_date_to">When you plan to finish your work?</string>
+    <string name="continue_order_fragment_date_from">When you plan to start your project?</string>
+    <string name="continue_order_fragment_date_to">When you plan to finish your project?</string>
+    <string name="continue_order_fragment_dead_line">When receive new RFP dead line date?</string>
     <string name="pick_your_work_location">Pick your work location</string>
     <string name="continue_order_fragment_action_submit">Submit now</string>
-    <string name="continue_order_fragment_error_message_date_from">Pick your work start date</string>
-    <string name="continue_order_fragment_error_message_date_to">Pick your work end date</string>
+    <string name="continue_order_fragment_error_message_date_from">Pick your project start date</string>
+    <string name="continue_order_fragment_error_message_date_to">Pick your project end date</string>
+    <string name="continue_order_fragment_error_message_dead_line">Pick receive new RFP dead line date</string>
+    <string name="continue_order_fragment_error_details">Fill the box</string>
     <string name="continue_order_fragment_error_message_location_on_map">Pick work location on map</string>
     <string name="continue_order_fragment_map_customer_location">Work location</string>
-
+    <string name="pick_your_payment_type">Select payment type</string>
+    <string name="pick_your_request_details">Some details about your work</string>
 
     <!--  Settings  -->
     <string name="settings_title">Settings</string>
     <string name="settings_language">Change language</string>
     <string name="settings_logout">Logout</string>
+    <string name="settings_logout_confirm_msg">Are you sure you want to logout?</string>
+    <string name="settings_cash">Cash on delivery</string>
+    <string name="settings_card">Credit / Debit card</string>
 
 
     <!--  Profile  -->
     <string name="profile_title">Profile</string>
+    <string name="profile_name">Name</string>
 
 
     <!--  cell orders  -->
     <string name="cell_orders_title">My orders</string>
-    <string name="cell_orders_order_id">Order id :</string>
-    <string name="cell_orders_order_date">Order date :</string>
-    <string name="cell_orders_order_status">Status :</string>
-    <string name="cell_orders_order_price">Price :</string>
-    <string name="cell_orders_order_details">Details :</string>
-
+    <string name="cell_orders_order_id">RFP id</string>
+    <string name="cell_orders_order_date">Order start date</string>
+    <string name="cell_orders_order_date_end">Order end date</string>
+    <string name="cell_orders_order_status">Status</string>
+    <string name="cell_orders_order_price">Price</string>
+    <string name="cell_orders_order_details">Details</string>
+    <string name="cell_orders_order_state_new">New</string>
+    <string name="cell_orders_order_state_completed">Completed</string>
+    <string name="cell_orders_order_state_expired">ِExpired</string>
+    <string name="cell_orders_order_state_deleted">Deleted</string>
+    <string name="cell_orders_order_catregory">Category</string>
+    <string name="cell_orders_order_sub_catregory">Sub category</string>
+    <string name="cell_orders_order_rating_submitted">Rating submitted</string>
+    <string name="cell_orders_order_rating_send">Submit</string>
 
     <!--  cell sub category  -->
     <string name="cell_sub_category_title">Sub category</string>
 
     <!--  cell equipment category  -->
     <string name="cell_equipment_category_title">Equipment</string>
+    <string name="cell_equipment_supplier_data">Supplier</string>
+    <string name="cell_equipment_supplier_name">Supplier</string>
+    <string name="cell_equipment_supplier_rate">Rate</string>
+    <string name="cell_equipment_price">Price</string>
+    <string name="cell_equipment_SR">SR</string>
+    <string name="cell_equipment_daily">Daily</string>
+    <string name="cell_equipment_weekly">Weekly</string>
+    <string name="cell_equipment_monthly">Monthly</string>
+    <string name="cell_equipment_height">Height</string>
+    <string name="cell_equipment_weight">Weight</string>
+    <string name="cell_equipment_quantity">Quantity</string>
+    <string name="cell_equipment_height_count">m</string>
+    <string name="cell_equipment_weight_count">tn</string>
+
 
 
     <!--  General  -->
@@ -98,5 +128,7 @@
     <string name="error_serverconn">Server Error</string>
     <string name="server_error">Error happened please try again later</string>
     <string name="check_connection">Please Check Internet Connection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -28,6 +28,7 @@ import com.hacathon.heavyequipmentrent.network.NetworkHelper;
 import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.MainCallBacks;
 import com.hacathon.heavyequipmentrent.utilis.LanguageManager;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,15 +129,17 @@ public class LoginFragment extends Fragment {
         });
     }
 
-
+    //username : renter , password : Welcome1!
     private void SubmitLogin(){
-        LoginRequest req = new LoginRequest();
-        req.setUsername(editTextUsername.getText().toString());
-        req.setPassword(editTextPassword.getText().toString());
-
-        ((MainActivity) getActivity()).showLoadingDialog(null, null);
 
         if (NetworkHelper.getInstance().isConnected()){
+
+            LoginRequest req = new LoginRequest();
+            req.setUsername(editTextUsername.getText().toString());
+            req.setPassword(editTextPassword.getText().toString());
+
+            ((MainActivity) getActivity()).showLoadingDialog(null, null);
+
             Call<LoginResponse> cResponse = MyApplication.getRestClient().getApiService().loginService(req);
             cResponse.enqueue(new Callback<LoginResponse>() {
                 @Override
@@ -146,7 +149,7 @@ public class LoginFragment extends Fragment {
                     }
                     if (response !=null && response.errorBody() == null && response.body() != null){
                         final LoginResponse res = response.body();
-                        if (res.getCode() == 0){
+                        if (res.getCode() != null && res.getCode() == 0){
                             createUserProfileAndSave(res);
                         }
                         else {
@@ -171,16 +174,15 @@ public class LoginFragment extends Fragment {
     }
 
     private void createUserProfileAndSave(LoginResponse response){
-
-        MyApplication.getRealmInstance().beginTransaction();
-        MyApplication.getRealmInstance().where(UserBean.class).findAll().deleteAllFromRealm();
+        Realm.getDefaultInstance().beginTransaction();
         UserBean userBean = new UserBean();
         userBean.setUserID(response.getUserId());
         userBean.setDisplayName(response.getDisplayName());
         userBean.setToken(response.getToken());
-        MyApplication.getRealmInstance().copyToRealmOrUpdate(userBean);
-        MyApplication.getRealmInstance().commitTransaction();
+        Realm.getDefaultInstance().copyToRealmOrUpdate(userBean);
+        Realm.getDefaultInstance().commitTransaction();
 
+        ((MainActivity) getActivity()).clearBackStack();
         ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Home);
     }
 
@@ -196,7 +198,7 @@ public class LoginFragment extends Fragment {
             return false;
         }
 
-        if (editTextUsername.getText().toString().length() < 5){
+        if (editTextUsername.getText().toString().length() < 3){
             textInputLayout_username.setError(getString(R.string.login_valid_username_length_error_message));
             return false;
         }
@@ -206,7 +208,7 @@ public class LoginFragment extends Fragment {
             return false;
         }
 
-        if (editTextPassword.getText().toString().length() < 8){
+        if (editTextPassword.getText().toString().length() < 3){
             textInputLayout_password.setError(getString(R.string.login_valid_password_length_error_message));
             return false;
         }
@@ -224,7 +226,9 @@ public class LoginFragment extends Fragment {
             editor.putBoolean(IS_FIRSTRUN, false);
             editor.apply();
 
-            System.exit(0);
+            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         }
         else {
             LanguageManager.setCurrentLocalLanguage(getActivity().getBaseContext(), "ar");
@@ -233,8 +237,12 @@ public class LoginFragment extends Fragment {
             editor.putBoolean(IS_FIRSTRUN, false);
             editor.apply();
 
-            System.exit(0);
+            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+
         }
+        getActivity().finish();
     }
 
 

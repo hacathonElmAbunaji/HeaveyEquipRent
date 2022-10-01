@@ -2,7 +2,7 @@ package com.hacathon.heavyequipmentrent.models.Responses;
 
 public class LoginResponse {
 
-    Long code;
+    Long responseCode;
     Long userId;
     String token;
     String expires;
@@ -12,11 +12,11 @@ public class LoginResponse {
     }
 
     public Long getCode() {
-        return code;
+        return responseCode;
     }
 
     public void setCode(Long code) {
-        this.code = code;
+        this.responseCode = code;
     }
 
     public Long getUserId() {

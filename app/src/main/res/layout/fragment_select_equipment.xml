@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.SelectEquipmentFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout_equipment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_equipment"
         android:layout_width="match_parent"
@@ -16,16 +26,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_header_title_sub_cat" />
 
-    <TextView
-        android:id="@+id/textView_header_title_category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/equipments_category_header_title"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView_header_title_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/equipments_category_header_title"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -34,37 +44,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/equipments_sub_category_header_title"
-        android:textSize="26sp"
+        android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView_header_title_category"
         app:layout_constraintTop_toBottomOf="@+id/textView_header_title_category" />
 
-    <TextView
-        android:id="@+id/textView_selected_cat_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textColor="@color/primary_700"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_header_title_category"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_header_title_sub_cat"
-        app:layout_constraintTop_toTopOf="@+id/textView_header_title_category" />
+            <TextView
+                android:id="@+id/textView_selected_cat_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:minLines="1"
+                android:text="TextView"
+                android:textColor="@color/primary_700"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_header_title_category"
+                app:layout_constraintTop_toTopOf="@+id/textView_header_title_category" />
 
     <TextView
         android:id="@+id/textView_selected_sub_cat_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/primary_700"
-        android:textSize="26sp"
+        android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView_header_title_sub_cat"
         app:layout_constraintEnd_toEndOf="@+id/textView_selected_cat_name"
-        app:layout_constraintStart_toStartOf="@+id/textView_selected_cat_name"
+        app:layout_constraintStart_toEndOf="@+id/textView_header_title_sub_cat"
         app:layout_constraintTop_toBottomOf="@+id/textView_selected_cat_name" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

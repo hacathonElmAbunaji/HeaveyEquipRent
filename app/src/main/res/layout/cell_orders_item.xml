@@ -60,9 +60,31 @@
                 android:layout_marginTop="8dp"
                 android:text="-----"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_order_number_title"
                 app:layout_constraintEnd_toEndOf="@+id/imageView_order_image"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_order_image" />
+
+
+            <TextView
+                android:id="@+id/textView643"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/cell_equipment_supplier_rate"
+                app:layout_constraintStart_toStartOf="@+id/textView_order_number_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView_order_number_title" />
+
+
+            <RatingBar
+                android:id="@+id/ratingBar_order"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:isIndicator="false"
+                app:layout_constraintBottom_toBottomOf="@+id/textView643"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/textView643" />
 
             <TextView
                 android:id="@+id/textView_order_date_title"
@@ -72,19 +94,19 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/cell_orders_order_date"
                 app:layout_constraintEnd_toStartOf="@+id/textView_order_date"
-                app:layout_constraintStart_toStartOf="@+id/textView_order_number_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_number_title" />
+                app:layout_constraintStart_toStartOf="@+id/textView643"
+                app:layout_constraintTop_toBottomOf="@+id/textView643" />
 
             <TextView
                 android:id="@+id/textView_order_date"
                 android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
                 android:text="-----"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_order_date_title"
                 app:layout_constraintEnd_toEndOf="@+id/textView_order_number"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_number" />
+                app:layout_constraintTop_toTopOf="@+id/textView_order_date_title" />
 
 
             <TextView
@@ -96,49 +118,47 @@
                 android:text="@string/cell_orders_order_status"
                 app:layout_constraintEnd_toStartOf="@+id/textView_order_status"
                 app:layout_constraintStart_toStartOf="@+id/textView_order_date_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_date" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_order_end_date_title" />
 
             <TextView
                 android:id="@+id/textView_order_status"
                 android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
                 android:text="-----"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_order_status_title"
                 app:layout_constraintEnd_toEndOf="@+id/textView_order_date"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_date" />
+                app:layout_constraintTop_toTopOf="@+id/textView_order_status_title" />
 
 
             <TextView
-                android:id="@+id/textView_order_price_title"
+                android:id="@+id/textView_order_end_date_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/cell_orders_order_price"
+                android:text="@string/cell_orders_order_date_end"
                 app:layout_constraintEnd_toEndOf="@+id/textView_order_status_title"
                 app:layout_constraintStart_toStartOf="@+id/textView_order_status_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_status_title" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_order_date_title" />
 
             <TextView
-                android:id="@+id/textView_order_price"
+                android:id="@+id/textView_order_end_date"
                 android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
                 android:text="-----"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_order_end_date_title"
                 app:layout_constraintEnd_toEndOf="@+id/textView_order_status"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_status" />
+                app:layout_constraintTop_toTopOf="@+id/textView_order_end_date_title" />
 
 
             <TextView
                 android:id="@+id/textView_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp"
                 android:lines="3"
                 android:maxLines="5"
                 android:text="--------------------------------------------------------------------------------------------------------------"
@@ -146,24 +166,84 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView_order_status"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/textView_order_price_title" />
+                app:layout_constraintTop_toTopOf="@+id/textView" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.3" />
+                app:layout_constraintGuide_percent="0.4" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/cell_orders_order_details"
                 app:layout_constraintEnd_toStartOf="@+id/textView_details"
-                app:layout_constraintStart_toStartOf="@+id/textView_order_price_title"
-                app:layout_constraintTop_toTopOf="@+id/textView_details" />
+                app:layout_constraintStart_toStartOf="@+id/textView_order_end_date_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/cell_orders_order_catregory"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_order_status_title" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/cell_orders_order_sub_catregory"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView_order_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="-----"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView_order_sub_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="-----"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cell_orders_order_rating_send"
+                android:textColor="@color/primary_700"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBar_order"
+                app:layout_constraintEnd_toEndOf="@+id/textView_order_number"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar_order"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar_order" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

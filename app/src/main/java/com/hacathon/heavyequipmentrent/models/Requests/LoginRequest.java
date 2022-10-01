@@ -2,7 +2,6 @@ package com.hacathon.heavyequipmentrent.models.Requests;
 
 public class LoginRequest {
 
-
     String username;
     String password;
 

@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.HeavyEquipmentRent" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_200</item>
+        <item name="colorPrimary">@color/primary_700</item>
         <item name="colorPrimaryVariant">@color/primary_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_200</item>
-        <item name="colorSecondaryVariant">@color/secondary_200</item>
+        <item name="colorSecondary">@color/secondary_700</item>
+        <item name="colorSecondaryVariant">@color/secondary_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -19,5 +19,10 @@
         <item name="colorAccent">@color/primary_700</item>
     </style>
 
+    <style name="customRatingBar"
+        parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="colorControlNormal">@color/secondary_700</item>
+        <item name="colorControlActivated">@color/primary_700</item>
+    </style>
 
 </resources>

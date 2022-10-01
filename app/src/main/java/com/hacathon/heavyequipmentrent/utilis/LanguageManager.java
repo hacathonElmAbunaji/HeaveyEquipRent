@@ -1,6 +1,7 @@
 package com.hacathon.heavyequipmentrent.utilis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -65,7 +66,7 @@ public class LanguageManager {
     }
 
     public static boolean isCurrentLangARabic(){
-        if (Current_Language_Key.equalsIgnoreCase("ar")){
+        if (Current_Language_Key != null && Current_Language_Key.equalsIgnoreCase("ar")){
             return true;
         }
         else {
@@ -74,11 +75,7 @@ public class LanguageManager {
     }
 
     public static void setCurrentLocalLanguage(Context context,String locLang){
-
-
         updateResources(context , locLang);
-
-
 
         SharedPreferences sharedPref = MyApplication.getSharedPref(context);
 
@@ -89,10 +86,6 @@ public class LanguageManager {
 
         Current_Language_Name = languagesMap.get(locLang);
         Current_Language_Key = locLang;
-
-
-
-
     }
 
     private static Context updateResources(Context context, String language) {

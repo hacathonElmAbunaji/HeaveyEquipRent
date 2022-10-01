@@ -13,12 +13,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:fontFamily">@font/bebasneueregular</item>
+        <item name="android:fontFamily">@font/jana_lt</item>
+<!--        <item name="android:fontFamily">@font/bebasneueregular</item>-->
     </style>
 
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/primary_700</item>
+    </style>
+
+    <style name="customRatingBar"
+        parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="colorControlNormal">@color/secondary_700</item>
+        <item name="colorControlActivated">@color/primary_700</item>
     </style>
 
 </resources>

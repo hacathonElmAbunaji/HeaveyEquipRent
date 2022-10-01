@@ -3,6 +3,7 @@ package com.hacathon.heavyequipmentrent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.Application;
@@ -31,8 +32,12 @@ import com.hacathon.heavyequipmentrent.ui.SettingsFragment;
 import com.hacathon.heavyequipmentrent.ui.SubCategoryFragment;
 import com.hacathon.heavyequipmentrent.utilis.LanguageManager;
 
-public class MainActivity extends AppCompatActivity implements MainCallBacks {
+import java.util.List;
+import java.util.Objects;
 
+import io.realm.Realm;
+
+public class MainActivity extends AppCompatActivity implements MainCallBacks {
 
     //FRAGMENT
     FragmentManager fragmentManager;
@@ -42,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
     ImageView imageView_arrow_back;
     ProgressDialog progress;
 
+
+    public Long selectedCatId = -1L;
+    public Long selectedSubCatId = -1L;
+    public Long selectedEquipmentId = -1L;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +59,20 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
         //FM
         fragmentManager = getSupportFragmentManager();
 
+
         initLayouts();
         setClickListeners();
 
-        UserBean bean = MyApplication.getRealmInstance().where(UserBean.class).findFirst();
+        UserBean bean = Realm.getDefaultInstance().where(UserBean.class).findFirst();
         if (bean != null && bean.isValid()){
             navigateTo(Constants.Navigations.Home);
         }else {
             navigateTo(Constants.Navigations.Login);
+        }
+
+
+        if (LanguageManager.isCurrentLangARabic()){
+            imageView_arrow_back.setRotation(180);
         }
 
     }//OnCreate
@@ -149,19 +165,60 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
         switch (direction){
             case Register: fragmentManager.beginTransaction().replace(R.id.fragment_container, RegisterFragment.newInstance(this)).addToBackStack(null).commit(); break;
             case Login: {
-                for (int i = 0 ; i < fragmentManager.getBackStackEntryCount()+1 ; i++){
-                    fragmentManager.popBackStack();
-                }
+                clearBackStack();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, LoginFragment.newInstance(this)).commit(); break;
             }
-            case Home: fragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case SUB_CATEGORY: fragmentManager.beginTransaction().replace(R.id.fragment_container, SubCategoryFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case SELECT_EQUIPMENT: fragmentManager.beginTransaction().replace(R.id.fragment_container, SelectEquipmentFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case CONTINUE_ORDER: fragmentManager.beginTransaction().replace(R.id.fragment_container, ContinueOrderFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case Orders: fragmentManager.beginTransaction().replace(R.id.fragment_container, OrdersFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case Settings: fragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsFragment.newInstance(this)).addToBackStack(null).commit(); break;
-            case Profile: fragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment.newInstance(this)).addToBackStack(null).commit(); break;
+            case Home: {
+                app_nav.setSelectedItemId(R.id.home);
+                clearBackStack();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(this)).addToBackStack(null).commit();} break;
+            case SUB_CATEGORY: fragmentManager.beginTransaction().replace(R.id.fragment_container, SubCategoryFragment.newInstance(this, selectedCatId)).addToBackStack(null).commit(); break;
+            case SELECT_EQUIPMENT: fragmentManager.beginTransaction().replace(R.id.fragment_container, SelectEquipmentFragment.newInstance(this, selectedCatId, selectedSubCatId)).addToBackStack(null).commit(); break;
+            case CONTINUE_ORDER: fragmentManager.beginTransaction().replace(R.id.fragment_container, ContinueOrderFragment.newInstance(this, selectedCatId, selectedSubCatId, selectedEquipmentId)).addToBackStack(null).commit(); break;
+            case Orders: {
+                app_nav.setSelectedItemId(R.id.requests);
+                clearBackStack();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, OrdersFragment.newInstance(this)).addToBackStack(null).commit(); break;}
+            case Settings: {
+//                app_nav.setSelectedItemId(R.id.requests);
+                clearBackStack();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsFragment.newInstance(this)).addToBackStack(null).commit(); break;}
+            case Profile: {
+                app_nav.setSelectedItemId(R.id.profile);
+                clearBackStack();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment.newInstance(this)).addToBackStack(null).commit(); break;}
         }
+    }
+
+    public void clearBackStack(){
+        if (fragmentManager != null && fragmentManager.getBackStackEntryCount() < 0){
+            for (int i = 0 ; i < fragmentManager.getBackStackEntryCount()+1 ; i++){
+                fragmentManager.popBackStack();
+            }
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //CUSTOM BACK BUTTON IN FRAGMENTS (VISIBLE FRAG)
+//        if(Objects.requireNonNull(getVisibleFragment()).getClass() == paymentConfirmationFragment.class){
+//        }
+//        else{
+//            super.onBackPressed();
+//        }
+    }
+
+    private Fragment getVisibleFragment(){
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if(fragments != null){
+            for(Fragment fragment : fragments){
+                if(fragment != null && fragment.isVisible())
+                    return fragment;
+            }
+        }
+        return null;
     }
 
     public void showLoadingDialog(String title, String message){
@@ -186,10 +243,10 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
         }
     }
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(LanguageManager.checkCurrentLanguage(base));
-//    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LanguageManager.checkCurrentLanguage(base));
+    }
 
 
 }//Class

@@ -43,7 +43,6 @@ public class MyApplication extends android.app.Application {
     public void initDB() {
         RealmConfiguration config;
         config = new RealmConfiguration.Builder().name("her.realm").deleteRealmIfMigrationNeeded().build();
-        config.shouldDeleteRealmIfMigrationNeeded();
         Realm.setDefaultConfiguration(config);
         Realm.getInstance(config);
     }
@@ -74,15 +73,15 @@ public class MyApplication extends android.app.Application {
 
 
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(mLanguage_Manager.checkCurrentLanguage(base));
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        mLanguage_Manager.checkCurrentLanguage(this);
-//    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LanguageManager.checkCurrentLanguage(base));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LanguageManager.checkCurrentLanguage(this);
+    }
 
 }

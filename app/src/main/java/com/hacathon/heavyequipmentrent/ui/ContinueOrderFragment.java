@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,29 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.hacathon.heavyequipmentrent.Constants.Constants;
 import com.hacathon.heavyequipmentrent.MainActivity;
 import com.hacathon.heavyequipmentrent.R;
+import com.hacathon.heavyequipmentrent.appcore.MyApplication;
+import com.hacathon.heavyequipmentrent.database.CategoriesBean;
+import com.hacathon.heavyequipmentrent.database.EquipmentsBean;
+import com.hacathon.heavyequipmentrent.database.SubCategoriesBean;
+import com.hacathon.heavyequipmentrent.database.UserBean;
+import com.hacathon.heavyequipmentrent.models.Requests.CreateOrderRequest;
+import com.hacathon.heavyequipmentrent.models.Requests.GetEquipmentsRequest;
+import com.hacathon.heavyequipmentrent.models.Responses.CreateOrderResponse;
+import com.hacathon.heavyequipmentrent.models.Responses.GetEquipmentsResponse;
+import com.hacathon.heavyequipmentrent.network.NetworkHelper;
 import com.hacathon.heavyequipmentrent.ui.Adapters.CallBacks.MainCallBacks;
+import com.hacathon.heavyequipmentrent.utilis.LanguageManager;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+
+import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,13 +64,21 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
     View view;
     MainCallBacks mainCallBacks;
     Button button_submit_order;
-    TextInputLayout textInputLayout_date_from, textInputLayout_date_to;
-    TextInputEditText editTextDateFrom, editTextDateTo;
+    TextInputLayout textInputLayout_date_from, textInputLayout_date_to, textInputLayout_details, textInputLayout_dead_line;
+    TextInputEditText editTextDateFrom, editTextDateTo, textInputEditText_details, editTextDeadLine;
+    TextView textView_header_title_all_choiced;
     private GoogleMap mMap;
     private int mYear, mMonth, mDay;
-    private long dateFrom;
-    private long dateTo;
+    private Long dateFrom;
+    private Long dateTo;
+    private Long deadLine;
+    Long selectedCatId;
+    Long selectedSubCatId;
+    Long selectedEquipmentId;
 
+    Long fromDateLong;
+    Long toDateLong;
+    Long deadLineLong;
 
     MarkerOptions mapMarker;
 
@@ -59,10 +87,12 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
     }
 
 
-    public static ContinueOrderFragment newInstance(MainCallBacks mainCallBacks) {
+    public static ContinueOrderFragment newInstance(MainCallBacks mainCallBacks, Long selectedCatId, Long selectedSubCatId, Long selectedEquipmentId) {
         ContinueOrderFragment fragment = new ContinueOrderFragment(mainCallBacks);
         fragment.mainCallBacks = mainCallBacks;
-
+        fragment.selectedCatId = selectedCatId;
+        fragment.selectedSubCatId = selectedSubCatId;
+        fragment.selectedEquipmentId = selectedEquipmentId;
 
         return fragment;
     }
@@ -75,7 +105,7 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
         ((MainActivity) getActivity()).showHideBottomNavBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.continue_order_fragment_title));
-        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.HIDE);
+        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.SHOW);
 
 
     }//OnCreate
@@ -90,6 +120,32 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
         onClickListeners();
         initGoogleMap();
 
+
+        //ACTIVITY CUSTOM
+        ((MainActivity) getActivity()).showHideBottomNavBar(Constants.ShowOrHide.SHOW);
+        ((MainActivity) getActivity()).showHideTopActionBar(Constants.ShowOrHide.SHOW);
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.equipments_fragment_title));
+        ((MainActivity) getActivity()).showHideTopBackButton(Constants.ShowOrHide.SHOW);
+
+
+        CategoriesBean bean = Realm.getDefaultInstance().where(CategoriesBean.class).equalTo("catId", selectedCatId).findFirst();
+        SubCategoriesBean beanSub = Realm.getDefaultInstance().where(SubCategoriesBean.class).equalTo("subCatId", selectedSubCatId).findFirst();
+        EquipmentsBean equipBean = Realm.getDefaultInstance().where(EquipmentsBean.class).equalTo("id", selectedEquipmentId).findFirst();
+
+
+        if (bean != null && bean.isValid()){
+            if (beanSub != null && beanSub.isValid()){
+                if (equipBean != null && equipBean.isValid()){
+                    String cat = LanguageManager.isCurrentLangARabic() ? bean.getTitleAr() : bean.getTitleEn();
+                    String subCat = LanguageManager.isCurrentLangARabic() ? beanSub.getTitleAr() : beanSub.getTitleEn();
+                    String equip = LanguageManager.isCurrentLangARabic() ? equipBean.getTitleAr() : equipBean.getTitleEn();
+                    textView_header_title_all_choiced.setText(cat + " - " + subCat + " - "+ equip);
+                }
+            }
+        }
+
+
+
         return view;
     }//OnCreateView
 
@@ -100,6 +156,11 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
         textInputLayout_date_to = view.findViewById(R.id.textInputLayout_date_to);
         editTextDateFrom = view.findViewById(R.id.editTextDateFrom);
         editTextDateTo = view.findViewById(R.id.editTextDateTo);
+        textView_header_title_all_choiced = view.findViewById(R.id.textView_header_title_all_choiced);
+        textInputLayout_details = view.findViewById(R.id.textInputLayout_details);
+        textInputEditText_details = view.findViewById(R.id.textInputEditText_details);
+        textInputLayout_dead_line = view.findViewById(R.id.textInputLayout_dead_line);
+        editTextDeadLine = view.findViewById(R.id.editTextDeadLine);
     }
 
     private void initGoogleMap(){
@@ -129,8 +190,17 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
                         dateFrom = calendar.getTimeInMillis();
 
                         editTextDateFrom.setText (dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        Locale locale = new Locale("en");
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd",locale);
+                        fromDateLong = Long.valueOf(dt.format(new Date(dateFrom)));
                     }
                 }, mYear, mMonth, mDay );
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+                if (dateTo != null){
+                    datePickerDialog.getDatePicker().setMaxDate(dateTo);
+                }
+
                 datePickerDialog.show ();
             }
         });
@@ -153,9 +223,51 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
                         dateTo = calendar.getTimeInMillis();
 
                         editTextDateTo.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        Locale locale = new Locale("en");
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd",locale);
+                        toDateLong = Long.valueOf(dt.format(new Date(dateTo)));
                     }
                 }, mYear, mMonth, mDay );
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+                if (dateFrom != null){
+                    datePickerDialog.getDatePicker().setMinDate(dateFrom);
+                }
                 datePickerDialog.show ();
+            }
+        });
+
+        editTextDeadLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar calendar = Calendar.getInstance ();
+                mYear = calendar.get ( Calendar.YEAR );
+                mMonth = calendar.get ( Calendar.MONTH );
+                mDay = calendar.get ( Calendar.DAY_OF_MONTH );
+                //show dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog ( getContext(), new DatePickerDialog.OnDateSetListener () {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, dayOfMonth);
+                        deadLine = calendar.getTimeInMillis();
+
+                        editTextDeadLine.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+
+                        Locale locale = new Locale("en");
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd",locale);
+                        deadLineLong = Long.valueOf(dt.format(new Date(deadLine)));
+
+                    }
+                }, mYear, mMonth, mDay );
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+                if (dateFrom != null){
+                    datePickerDialog.getDatePicker().setMaxDate(dateFrom);
+                }
+                datePickerDialog.show();
             }
         });
 
@@ -163,7 +275,7 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 if (isValidToSubmit()){
-                    Toast.makeText(getContext(), "Submit order now", Toast.LENGTH_LONG).show();
+                    createOrder();
                 }
             }
         });
@@ -208,6 +320,8 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
 
         textInputLayout_date_from.setErrorEnabled(false);
         textInputLayout_date_to.setErrorEnabled(false);
+        textInputLayout_dead_line.setErrorEnabled(false);
+        textInputLayout_details.setErrorEnabled(false);
 
         if (editTextDateFrom.getText().toString().isEmpty()){
             textInputLayout_date_from.setError(getString(R.string.continue_order_fragment_error_message_date_from));
@@ -219,12 +333,79 @@ public class ContinueOrderFragment extends Fragment implements OnMapReadyCallbac
             return false;
         }
 
+        if (editTextDeadLine.getText().toString().isEmpty()){
+            textInputLayout_dead_line.setError(getString(R.string.continue_order_fragment_error_message_dead_line));
+            return false;
+        }
+
         if (mapMarker == null || mapMarker.getPosition().latitude == 0.0 || mapMarker.getPosition().longitude == 0.0){
             Toast.makeText(getContext(), getString(R.string.continue_order_fragment_error_message_location_on_map), Toast.LENGTH_LONG).show();
             return false;
         }
 
+        if (textInputEditText_details.getText().toString().isEmpty()){
+            textInputLayout_details.setError(getString(R.string.continue_order_fragment_error_details));
+            return false;
+        }
+
         return true;
+    }
+
+
+    private void createOrder(){
+
+        if (NetworkHelper.getInstance().isConnected()){
+
+            UserBean userBean = Realm.getDefaultInstance().where(UserBean.class).findFirst();
+
+            CreateOrderRequest req = new CreateOrderRequest();
+            if (userBean != null && userBean.isValid()){
+                req.setCreatedByUserId(selectedSubCatId);
+            }
+
+            req.setCityId(0L);
+            req.setCatalogSubCategoryId(selectedSubCatId);
+            req.setRentStartDate(fromDateLong);
+            req.setRentToDate(toDateLong);
+            req.setDeadLineDate(deadLineLong);
+            req.setProjectDescription(textInputEditText_details.getText().toString());
+            req.setProjectLocation(mapMarker.getPosition().latitude+","+mapMarker.getPosition().longitude);
+
+
+            ((MainActivity) getActivity()).showLoadingDialog(null, null);
+
+            Call<CreateOrderResponse> cResponse = MyApplication.getRestClient().getApiService().createOrders(req);
+            cResponse.enqueue(new Callback<CreateOrderResponse>() {
+                @Override
+                public void onResponse(Call<CreateOrderResponse> call, final Response<CreateOrderResponse> response) {
+                    if (isVisible() && !isDetached()){
+                        ((MainActivity) getActivity()).hideLoadingDialog();
+                    }
+                    if (response !=null && response.errorBody() == null && response.body() != null){
+                        final CreateOrderResponse res = response.body();
+                        if (res.getResponseCode() != null && res.getResponseCode() == 0){
+                            ((MainActivity) getActivity()).clearBackStack();
+                            ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Orders);
+                        }
+                        else {
+                            MyApplication.getInstance().reportError(getString(R.string.error_happened));
+                        }
+                    }
+                    else {
+                        MyApplication.getInstance().reportError(getString(R.string.error_serverconn));
+                    }
+                }
+                @Override
+                public void onFailure(Call<CreateOrderResponse> call, Throwable t) {
+                    if (isVisible() && !isDetached()){
+                        ((MainActivity) getActivity()).hideLoadingDialog();
+                        MyApplication.getInstance().reportError(getString(R.string.server_error));
+                    }
+                }
+            });
+        }else {
+            MyApplication.getInstance().reportError(getString(R.string.check_connection));
+        }
     }
 
 
