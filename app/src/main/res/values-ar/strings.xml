@@ -19,6 +19,7 @@
     <string name="login_valid_username_length_error_message">اسم المستخدم يجب ان يكون اكثر من ٣ خانات</string>
     <string name="login_valid_password_error_message">ادخل كلمة المرور</string>
     <string name="login_valid_password_length_error_message">كلمة المرور يجب ان تكون اكثر من ٣ خانات</string>
+    <string name="login_valid_remember_me">تذكرني</string>
 
 
     <!--  Home  -->

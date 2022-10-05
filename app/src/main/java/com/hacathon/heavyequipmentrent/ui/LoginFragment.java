@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.hacathon.heavyequipmentrent.MainActivity;
 import com.hacathon.heavyequipmentrent.R;
 import com.hacathon.heavyequipmentrent.appcore.MyApplication;
 import com.hacathon.heavyequipmentrent.database.UserBean;
+import com.hacathon.heavyequipmentrent.database.UserLoginCredBean;
 import com.hacathon.heavyequipmentrent.models.Requests.LoginRequest;
 import com.hacathon.heavyequipmentrent.models.Responses.LoginResponse;
 import com.hacathon.heavyequipmentrent.network.NetworkHelper;
@@ -47,6 +49,8 @@ public class LoginFragment extends Fragment {
     ImageView imageView_language;
     TextInputLayout textInputLayout_username, textInputLayout_password;
     TextInputEditText editTextUsername, editTextPassword;
+    CheckBox chk_box_remember_me;
+    boolean rememberMyLoginCred = false;
 
     public LoginFragment(MainCallBacks mainCallBacks) {
         mainCallBacks = mainCallBacks;
@@ -64,6 +68,12 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }//OnCreate
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fillRememberMeFromRealm();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +104,7 @@ public class LoginFragment extends Fragment {
         textInputLayout_password = view.findViewById(R.id.textInputLayout_password);
         editTextUsername = view.findViewById(R.id.editTextUsername);
         editTextPassword = view.findViewById(R.id.editTextPassword);
+        chk_box_remember_me = view.findViewById(R.id.chk_box_remember_me);
 
     }
 
@@ -127,6 +138,14 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+
+        chk_box_remember_me.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rememberMyLoginCred = chk_box_remember_me.isChecked();
+            }
+        });
+
     }
 
     //username : renter , password : Welcome1!
@@ -150,7 +169,7 @@ public class LoginFragment extends Fragment {
                     if (response !=null && response.errorBody() == null && response.body() != null){
                         final LoginResponse res = response.body();
                         if (res.getCode() != null && res.getCode() == 0){
-                            createUserProfileAndSave(res);
+                            createUserProfileAndSave(req.getUsername(), req.getPassword(), res);
                         }
                         else {
                             MyApplication.getInstance().reportError(getString(R.string.error_happened));
@@ -173,7 +192,7 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void createUserProfileAndSave(LoginResponse response){
+    private void createUserProfileAndSave(String username, String password, LoginResponse response){
         Realm.getDefaultInstance().beginTransaction();
         UserBean userBean = new UserBean();
         userBean.setUserID(response.getUserId());
@@ -182,11 +201,40 @@ public class LoginFragment extends Fragment {
         Realm.getDefaultInstance().copyToRealmOrUpdate(userBean);
         Realm.getDefaultInstance().commitTransaction();
 
+
+        if (rememberMyLoginCred){
+            createRememberMeUserCred(username, password);
+        }else {
+            clearRememberMeFromRealm();
+        }
+
+
         ((MainActivity) getActivity()).clearBackStack();
         ((MainActivity) getActivity()).navigateTo(Constants.Navigations.Home);
     }
 
+    private void createRememberMeUserCred(String username, String password){
+        Realm.getDefaultInstance().beginTransaction();
+        UserLoginCredBean userLoginCredBean = new UserLoginCredBean();
+        userLoginCredBean.setUsername(username);
+        userLoginCredBean.setPassword(password);
+        Realm.getDefaultInstance().copyToRealmOrUpdate(userLoginCredBean);
+        Realm.getDefaultInstance().commitTransaction();
+    }
 
+    private void fillRememberMeFromRealm(){
+        UserLoginCredBean userLoginCredBean = Realm.getDefaultInstance().where(UserLoginCredBean.class).findFirst();
+        if (userLoginCredBean != null && userLoginCredBean.isValid()){
+            editTextUsername.setText(userLoginCredBean.getUsername());
+            editTextPassword.setText(userLoginCredBean.getPassword());
+        }
+    }
+
+    private void clearRememberMeFromRealm(){
+        Realm.getDefaultInstance().beginTransaction();
+        Realm.getDefaultInstance().where(UserLoginCredBean.class).findAll().deleteAllFromRealm();
+        Realm.getDefaultInstance().commitTransaction();
+    }
 
     private boolean isValidToSubmit(){
 

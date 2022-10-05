@@ -16,6 +16,7 @@
     <string name="login_valid_username_length_error_message">Username should be more than 3 characters and numbers</string>
     <string name="login_valid_password_error_message">Enter valid password</string>
     <string name="login_valid_password_length_error_message">Password should be more than 3 characters</string>
+    <string name="login_valid_remember_me">Remember me</string>
 
 
     <!--  Register  -->

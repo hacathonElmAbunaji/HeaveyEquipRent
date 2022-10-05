@@ -166,22 +166,37 @@ public class MainActivity extends AppCompatActivity implements MainCallBacks {
             case Register: fragmentManager.beginTransaction().replace(R.id.fragment_container, RegisterFragment.newInstance(this)).addToBackStack(null).commit(); break;
             case Login: {
                 clearBackStack();
+                if (app_nav.getSelectedItemId() != R.id.home){
+                    app_nav.setSelectedItemId(R.id.home);
+                }
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, LoginFragment.newInstance(this)).commit(); break;
             }
             case Home: {
                 clearBackStack();
+                if (app_nav.getSelectedItemId() != R.id.home){
+                    app_nav.setSelectedItemId(R.id.home);
+                }
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(this)).addToBackStack(null).commit();} break;
             case SUB_CATEGORY: fragmentManager.beginTransaction().replace(R.id.fragment_container, SubCategoryFragment.newInstance(this, selectedCatId)).addToBackStack(null).commit(); break;
             case SELECT_EQUIPMENT: fragmentManager.beginTransaction().replace(R.id.fragment_container, SelectEquipmentFragment.newInstance(this, selectedCatId, selectedSubCatId)).addToBackStack(null).commit(); break;
             case CONTINUE_ORDER: fragmentManager.beginTransaction().replace(R.id.fragment_container, ContinueOrderFragment.newInstance(this, selectedCatId, selectedSubCatId, selectedEquipmentId)).addToBackStack(null).commit(); break;
             case Orders: {
                 clearBackStack();
+                if (app_nav.getSelectedItemId() != R.id.requests){
+                    app_nav.setSelectedItemId(R.id.requests);
+                }
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, OrdersFragment.newInstance(this)).addToBackStack(null).commit(); break;}
             case Settings: {
                 clearBackStack();
+                if (app_nav.getSelectedItemId() != R.id.profile){
+                    app_nav.setSelectedItemId(R.id.profile);
+                }
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsFragment.newInstance(this)).addToBackStack(null).commit(); break;}
             case Profile: {
                 clearBackStack();
+                if (app_nav.getSelectedItemId() != R.id.profile){
+                    app_nav.setSelectedItemId(R.id.profile);
+                }
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, ProfileFragment.newInstance(this)).addToBackStack(null).commit(); break;}
         }
     }
